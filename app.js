@@ -9,11 +9,28 @@ containerDiv.style.display = 'none'
 setTimeout(()=>{
     loadingDiv.style.display ='none'
     containerDiv.style.display = 'block'
+    catİmage()
 
-},1000)
+},3000)
 
+
+
+const loadingShow =()=>{
+
+  loadingDiv.style.display ='block'
+  containerDiv.style.display = 'none'
+}
+
+
+const loadingHide =()=>{
+  loadingDiv.style.display ='none'
+  containerDiv.style.display = 'block'
+
+}
 
 const catİmage =()=>{ 
+  loadingShow()
+
 fetch('https://api.thecatapi.com/v1/images/search?limit=10')
 .then((res)=>{
 
@@ -23,23 +40,21 @@ fetch('https://api.thecatapi.com/v1/images/search?limit=10')
 
 return res.json();
 })
-.then((data)=>show(data))
-.catch((err)=>cardDiv.innerText =err)
+.then((data)=>{
+  loadingHide()
+  show(data)
+})
+.catch((err)=>{
+  loadingHide()
+cardDiv.innerHTML = `
+   <h2> ${err} <h2>
+   <img src="./img/error.gif" >
+` })
+
 }
 
 
 
-
-
-
-fetch('https://api.thecatapi.com/v1/images/search?limit=10')
-.then((res)=>{
-
-    if (!res.ok) {
-        throw new Error(`Hata: ${res.status}`)
-      }
-      return res.json()
-}).catch((err)=>cardDiv.innerText =err)
 
 
 
@@ -50,7 +65,7 @@ const show =(element)=>{
 element.forEach((a) => {
 cardDiv.innerHTML += 
 `<div class="col-12 col-sm-6 col-lg-4">
-<div style="height:200px;">
+<div style="height:200px;" class='m-4 rounded-3'>
   <img src="${a.url}" class="w-100 h-100" alt="...">
 </div>
 </div>`
