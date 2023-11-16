@@ -4,6 +4,16 @@ const btn = document.querySelector(".btn");
 const containerDiv = document.querySelector(".container");
 const tarih = document.getElementById("tarih");
 
+
+const hour = ()=>{
+  tarih.innerText = `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}  ${new Date().getHours()}.${new Date().getMinutes()}.${new Date().getSeconds()}`
+}
+
+setInterval(()=>{
+  hour()
+},1000)
+
+
 containerDiv.style.display = 'none'
 
 setTimeout(()=>{
@@ -11,7 +21,7 @@ setTimeout(()=>{
     containerDiv.style.display = 'block'
     catİmage()
 
-},3000)
+},2000)
 
 
 
